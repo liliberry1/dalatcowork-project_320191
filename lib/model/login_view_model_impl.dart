@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:project_320191/view_model/login_view_model.dart';
+import 'package:project_320191/services/login_api.dart';
 
 class LoginViewModelImpl implements LoginViewModel {
   var _userNameController = StreamController<String>.broadcast();
+  LoginApi _api = LoginApi();
 
   @override
   void dispose() {
@@ -16,13 +18,18 @@ class LoginViewModelImpl implements LoginViewModel {
       _userNameController.stream.map((username) => error(username));
 
   @override
-  // TODO: implement inputUserNameText
   Sink get inputUserNameText => _userNameController;
 
   @override
-  // TODO: implement isEnableButtonLogin
   Stream<bool> get isEnableButtonLogin =>
       _userNameController.stream.map((userName) => userNameValidator(userName));
+
+  @override
+  Stream<bool> get isLoginSuccess{
+    String userName;
+    _userNameController.stream.map((text) => userName = userName);
+    return Stream.fromFuture(_api.login(userName));
+  }
 
   bool userNameValidator(String userName) {
     return !userName.contains(" ");

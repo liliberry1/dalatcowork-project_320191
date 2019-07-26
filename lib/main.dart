@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_320191/view/login_page/login_page.dart';
+import 'package:project_320191/view/page/login_page.dart';
 import 'package:project_320191/view_model/login_view_model.dart';
 
 import 'model/login_view_model_impl.dart';

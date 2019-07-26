@@ -3,6 +3,8 @@ import 'package:project_320191/helper/utils.dart';
 import 'package:project_320191/model/login_view_model_impl.dart';
 import 'package:project_320191/view_model/login_view_model.dart';
 
+import 'home_page/home_page.dart';
+
 class LoginPage extends StatefulWidget {
   final LoginViewModel viewModel;
 
@@ -38,10 +40,10 @@ class _LoginPageState extends State<LoginPage> {
                 height: size.width / 3,
                 decoration:
                     BoxDecoration(color: randomColor(), shape: BoxShape.circle),
-                child: Text('dalat co work',style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold
-                ),),
+                child: Text(
+                  'dalat co work',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
@@ -55,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               StreamBuilder(
-                  stream: widget.viewModel.isEnableButtonLogin,
+                  stream: widget.viewModel.isLoginSuccess,
                   builder: (context, snapshot) {
                     return Container(
                       margin:
@@ -63,17 +65,29 @@ class _LoginPageState extends State<LoginPage> {
                       child: FlatButton(
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
-                          onPressed: snapshot?.data == true ? () {
+//                          onPressed: snapshot?.data == true ? () {
+//                            print('login');
+//                          } : null,
+                          onPressed: () {
                             print('login');
-                          } : null,
+                            if (snapshot?.data == true) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomePage()));
+                            }else{
+                              print("error");
+                            }
+                          },
                           child: Container(
                             alignment: Alignment.center,
                             width: size.width,
                             padding: EdgeInsets.symmetric(vertical: 12),
                             decoration: BoxDecoration(
-                                color: snapshot?.data == true
-                                    ? Colors.blue
-                                    : Colors.grey,
+//                                color: snapshot?.data == true
+//                                    ? Colors.blue
+//                                    : Colors.grey,
+                                color: Colors.blue,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(45))),
                             child: Text(
